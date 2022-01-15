@@ -4,6 +4,33 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const arrayLikes = Array.from(document.querySelectorAll('ul span'));
+
+arrayLikes.forEach( (heartBtn) => {
+
+function like() {
+  mimicServerCall()
+  .then( () => {
+   if (heartBtn.innerText === EMPTY_HEART) {
+      heartBtn.innerText = FULL_HEART;
+      heartBtn.className = 'like-glyph activated-heart';
+
+   } else if (heartBtn.innerText === FULL_HEART) {
+      heartBtn.innerText = EMPTY_HEART;
+      heartBtn.className = 'like-glyph';
+      }
+    }
+  )
+  .catch(() => {
+  document.querySelector('#modal').className = ''
+
+  document.querySelector('#modal').innerText = "Random server error. Try again."
+
+  setTimeout(() => {document.querySelector('#modal').className = 'hidden'}, 3000)
+  })
+}
+heartBtn.addEventListener('click', like);
+})
 
 
 
